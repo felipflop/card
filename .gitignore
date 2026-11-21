@@ -1,0 +1,30 @@
+# per-card SUN keys never leave this machine
+keys/
+*.key
+.env
+.dev.vars
+
+# KiCad
+*-backups/
+*.kicad_prl
+fp-info-cache
+_autosave-*
+*.lck
+~*.lck
+
+# outputs (regenerate with make)
+hardware/fab/
+hardware/renders/
+
+# firmware
+firmware/build/
+
+# web
+web/node_modules/
+web/.wrangler/
+
+# python
+__pycache__/
+.venv/
+
+.claude/
