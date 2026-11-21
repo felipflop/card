@@ -5,7 +5,7 @@ Inductance uses the planar rectangular coil formula from NXP AN11276
 (antenna design guide), which is what their antenna tool is based on.
 It's good to roughly 10% for etched coils; the trim cap covers the rest.
 
-    python3 tools/coil_gen.py --target-uh 7.4 -o hardware/libs/card.pretty
+    uv run tools/coil_gen.py --target-uh 7.4 -o hardware/libs/card.pretty
 """
 
 import argparse
