@@ -1,0 +1,180 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "fd325bb8-e63e-4181-b301-08bbf04c70fc")
+	(paper "A4")
+	(title_block
+		(title "NFC business card")
+		(date "2026-11-22")
+		(rev "A")
+		(comment 1 "NFC business card, passive, powered by the phone")
+	)
+	(lib_symbols)
+	(text "Passive card, no battery. The phone's field powers the tag; the tag's harvest output\npowers the MCU and the LEDs. nfc: coil, tag, 1.8 V rail. mcu_leds: MSPM0C1104 and a\n12-LED charlieplex. The two sheets only share I2C and the rail."
+		(exclude_from_sim no)
+		(at 50.8 40.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "aaa987c8-3fcc-402f-92b4-dc8872c60bf3")
+	)
+	(wire
+		(pts
+			(xy 101.6 81.28) (xy 139.7 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9f36ee9a-207d-402d-bcc2-c0de96b826f9")
+	)
+	(wire
+		(pts
+			(xy 101.6 86.36) (xy 139.7 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a94f900c-4c6e-4620-b061-eeadead99b16")
+	)
+	(sheet
+		(at 50.8 71.12)
+		(size 50.8 30.48)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "5ad4e7fa-241f-4aa8-bad6-5e793ba43c1a")
+		(property "Sheetname" "nfc"
+			(at 50.8 70.4 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "nfc.kicad_sch"
+			(at 50.8 102.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "SDA" bidirectional
+			(at 101.6 81.28 0)
+			(uuid "9b035d58-1c3d-4e53-baa9-de09e4f53013")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "SCL" bidirectional
+			(at 101.6 86.36 0)
+			(uuid "26cd2c87-f833-44d7-8f37-97596b6439c3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "card"
+				(path "/fd325bb8-e63e-4181-b301-08bbf04c70fc"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 139.7 71.12)
+		(size 50.8 30.48)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "d5565103-3a3c-4fdb-ac98-86e479c955b8")
+		(property "Sheetname" "mcu_leds"
+			(at 139.7 70.4 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "mcu_leds.kicad_sch"
+			(at 139.7 102.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "SDA" bidirectional
+			(at 139.7 81.28 180)
+			(uuid "536b59d1-2c5d-4995-a88e-a63030c4973a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCL" bidirectional
+			(at 139.7 86.36 180)
+			(uuid "5d8db5bc-459a-49ed-911e-2337e0157f4b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "card"
+				(path "/fd325bb8-e63e-4181-b301-08bbf04c70fc"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

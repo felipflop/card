@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "filename": "card.kicad_pro",
+    "version": 3
+  },
+  "sheets": [
+    [
+      "fd325bb8-e63e-4181-b301-08bbf04c70fc",
+      "Root"
+    ],
+    [
+      "5ad4e7fa-241f-4aa8-bad6-5e793ba43c1a",
+      "nfc"
+    ],
+    [
+      "d5565103-3a3c-4fdb-ac98-86e479c955b8",
+      "mcu_leds"
+    ]
+  ],
+  "text_variables": {}
+}
