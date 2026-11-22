@@ -18,7 +18,8 @@ check:
 erc:
 	kicad-cli sch erc --severity-all --exit-code-violations -o /dev/stdout $(SCH)
 
-# schematic renders for the README and docs/
+# schematic renders, kept out of git
 docs:
-	kicad-cli sch export svg -o docs/media $(SCH)
-	kicad-cli sch export pdf -o docs/media/schematic.pdf $(SCH)
+	mkdir -p hardware/renders
+	kicad-cli sch export svg -o hardware/renders $(SCH)
+	kicad-cli sch export pdf -o hardware/renders/schematic.pdf $(SCH)
