@@ -12,7 +12,7 @@ Stripped down, the card has five jobs. Everything else is optional.
 2. Prove a tap is genuine, so a copied card is detectable.
 3. Work with no battery.
 4. Fit a wallet: as close to the ISO/IEC 7810 ID-1 card (85.60 × 53.98 × 0.76 mm) as the parts allow.
-5. Look like an object, not a circuit board.
+5. Look finished: no visible components, no silkscreen, nothing that reads as a bare PCB.
 
 Jobs 1 and 2 pick the chip family (sections 2 and 3). Job 3 sets the energy budget (section 4). Job 4 sets the thickness budget (section 5). Job 5 sets the optics and the palette (sections 6 and 7).
 
@@ -29,9 +29,24 @@ C is the tag's input capacitance plus the coil and layout parasitics. For the NT
 
 The coil should sit slightly above 13.56 MHz before lamination, because both the trim capacitor and the dielectric skin can only pull the frequency down, never up.
 
-The biggest coil that fits the card captures the most flux, so the coil runs around the perimeter. `tools/coil_gen.py` uses the planar spiral formula from NXP AN11276 and picks 6 turns: L ≈ 6.57 µH, Rdc ≈ 2.5 Ω.
+The biggest coil that fits the card captures the most flux, so the coil runs around the perimeter. `tools/coil_gen.py` uses the planar spiral formula from NXP AN11276. It keeps trace and gap equal, because the coil is visible on the front and even stripes look deliberate, and solves their width for the target frequency. With 18.4 pF and an untuned target of 14.0 MHz it picks 6 turns of 0.39 mm stripes: L ≈ 6.19 µH, f₀ ≈ 13.99 MHz, Rdc ≈ 3.7 Ω on half-ounce flex copper.
 
-**Open problem.** The generator assumed 17 pF of tag capacitance (the nominal grade). With the datasheet's 18.4 pF typical, the untuned coil lands at 13.58 MHz instead of 14.06 MHz. That leaves no headroom for lamination, which will pull it below 13.56 MHz, and the trim cap can't push it back up. The coil needs to come down to about 6.2 µH: rerun the generator with `--cin-pf 18.4` and a target near 14 MHz.
+**How precise does the tuning have to be?** Less than I first thought. The tag isn't just a capacitor: the datasheet also gives 1.5 kΩ of parallel input resistance at the start of operation (Table 282), which is the condition that sets read range. At 14 MHz the coil's reactance is X = ωL ≈ 540 Ω, so the loaded quality factor is
+
+Q ≈ R / X = 1500 / 540 ≈ 2.7
+
+The coil's own copper loss barely registers. Even with 18 µm copper its Q is about 150, which looks like an 81 kΩ resistor in parallel with the chip's 1.5 kΩ. A tank with Q ≈ 2.7 is about 5 MHz wide, and its response at a detuning Δf is 1 / √(1 + (2QΔf/f)²):
+
+| Detuning | Response |
+|---|---|
+| 0.1 MHz | 99.9% |
+| 0.3 MHz | 99.3% |
+| 0.5 MHz | 98.0% |
+| 1.0 MHz | 92.6% |
+
+So the lamination shift of a few hundred kHz costs about 1%, and copper thickness is free to choose for other reasons. The trim cap stays as a DNP footprint for measuring, not because the card depends on it. When the tag is harvesting it loads the coil harder, which lowers Q and widens the band further.
+
+*Correction, 2026-11-22.* The first version of the generator assumed 17 pF, which put the coil at 13.58 MHz with the real 18.4 pF, and I listed that as an open problem. The Q calculation above shows it would have cost under 1%. I regenerated the coil anyway, since aiming above 13.56 MHz costs nothing.
 
 ## 3. Proving a tap is genuine needs a secret that can't be read out
 
@@ -79,7 +94,7 @@ Tallest parts: the tag at 0.525 mm max (SOT2127-1), 0402 capacitors at 0.55 mm m
 
 **Brightness per watt depends on colour.** The eye's sensitivity, the CIE V(λ) curve, peaks at 555 nm. Relative values: 586 nm yellow ≈ 0.81, 605 nm amber ≈ 0.57, 626 nm red ≈ 0.31, 527 nm green ≈ 0.82, 470 nm blue ≈ 0.09. For the same optical power, a yellow LED looks about 2.6 times brighter than a red one. ROHM's own numbers agree in direction: 7.6 mcd at 1 mA for the 586 nm SML-P11YT against 4.0 mcd for the 626 nm SML-P11VT. That's why the gold LED in [0008](decisions/0008-raise-the-rail-to-2v0-for-gold-leds.md) is also the efficient one.
 
-**Light gets trapped in clear plastic.** Light inside a material of index n hitting its surface at more than the critical angle θc = arcsin(1/n) reflects back in completely. For epoxy (n ≈ 1.5) θc ≈ 41.8°; for polycarbonate (n ≈ 1.59) θc ≈ 39.1°. A Lambertian LED embedded face down in the slab sends a fraction cos²θc of its light beyond that angle: about 56–60%. That light runs along the epoxy and skin until something scatters it out, and the laser-engraved micro-voids do exactly that. It's the physics behind the edge-lit engraving in [0006](decisions/0006-light-the-back-and-the-engraving.md), and why the engraving has to use voids that scatter light (foaming) and not carbonised dark marks.
+**Light gets trapped in clear plastic.** Light inside a material of index n hitting its surface at more than the critical angle θc = arcsin(1/n) reflects back in completely. For epoxy (n ≈ 1.5) θc ≈ 41.8°; for polycarbonate (n ≈ 1.59) θc ≈ 39.1°. A Lambertian LED embedded face down in the slab sends a fraction cos²θc of its light beyond that angle: about 56–60%. That light runs along the epoxy and skin until something scatters it out, and the laser-engraved micro-voids do exactly that. It's the physics behind the edge-lit engraving in [0006](decisions/0006-light-the-back-and-the-engraving.md), and why the engraving needs the laser's foaming setting, which leaves light-scattering voids. The carbonising setting leaves dark marks that won't glow.
 
 ## 7. Colour: what makes metal look expensive
 
@@ -93,6 +108,6 @@ The tag's balls are on a 0.35 mm pitch with 0.20 mm pads, which leaves 0.15 mm b
 
 | # | Problem | Section | Next step |
 |---|---|---|---|
-| 1 | Coil tuned too low for the 18.4 pF typical tag capacitance | 2 | Regenerate the coil for about 6.2 µH |
+| 1 | Coil tuned too low for the 18.4 pF typical tag capacitance | 2 | Done 2026-11-22: regenerated for 13.99 MHz. Loaded Q ≈ 2.7 means it only cost about 1% |
 | 2 | MLCC bank fades in tens of ms, not 0.3–1 s | 4 | Measure on prototype 1; consider the 0.4 mm supercap |
 | 3 | 0.76 mm ISO thickness not reachable with these parts | 5 | Decide at layout: 0201 bank and WCSP MCU, or accept about 0.8 mm |

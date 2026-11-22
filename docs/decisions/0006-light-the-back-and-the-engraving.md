@@ -6,7 +6,7 @@ Derived from: [first principles](../first-principles.md) §5 Thickness, §6 Ligh
 
 ## Context
 
-The plan called for reverse-mount LEDs firing through the substrate. Real reverse-mount parts (Kingbright APTR3216SURCK, for example) are 1.05 mm thick and push their lens through a hole in the board, so on 0.11 mm flex they would stand about 0.9 mm proud of the gold front. Side-view LEDs were the other route, but the APA1606 is 1.2 mm tall. I compared eight placements in [led-options.html](../explorations/led-options.html).
+The plan called for reverse-mount LEDs firing through the substrate. Real reverse-mount parts (Kingbright APTR3216SURCK, for example) are 1.05 mm thick and push their lens through a hole in the board, so on 0.11 mm flex they would stand about 0.9 mm proud of the gold front. Side-view LEDs were the other route, but the APA1606 is 1.2 mm tall. I compared eight placements before choosing.
 
 ## Decision
 

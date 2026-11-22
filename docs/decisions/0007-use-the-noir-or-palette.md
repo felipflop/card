@@ -6,7 +6,7 @@ Derived from: [first principles](../first-principles.md) §7 Colour
 
 ## Context
 
-The card has four visible materials and one light: the front mask, the ENIG gold, the back skin, the engraving, and the LED glow. I compared five palettes on six layouts in [card-studio.html](../explorations/card-studio.html): Noir Or, Midnight, Graphite, Ivoire and Kapton.
+The card has four visible materials and one light: the front mask, the ENIG gold, the back skin, the engraving, and the LED glow. I compared five palettes on six layouts: Noir Or, Midnight, Graphite, Ivoire and Kapton.
 
 What I learned doing it: gold only looks rich next to warm neutrals; next to blue-black or blue-white it looks brassy. Cold light (blue, white, green) next to warm metal looks cheap. More than one glow colour starts to look like a gadget.
 
