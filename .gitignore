@@ -31,3 +31,7 @@ __pycache__/
 
 # vendor datasheets, copyrighted; fetched locally
 hardware/datasheets/
+
+# local notes, not published
+docs/log/
+docs/explorations/
