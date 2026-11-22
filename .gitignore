@@ -28,3 +28,6 @@ __pycache__/
 .venv/
 
 .claude/
+
+# vendor datasheets, copyrighted; fetched locally
+hardware/datasheets/
